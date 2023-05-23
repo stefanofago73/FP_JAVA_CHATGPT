@@ -24,7 +24,7 @@ For the examples involving monads and monad transformers, the main classes and i
   #WARNING - WHAT FOLLOW IS INCOMPLETE AND UNFILTERED CODE; IT COMES DIRECTLY FROM A CHAT SESSION
   
 
-###FUNCTOR & COFUNCTOR
+### FUNCTOR & COFUNCTOR
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -111,7 +111,7 @@ public class Example2 {
 
 
 
-NATURAL TRANSFORMATION EXAMPLE
+### NATURAL TRANSFORMATION EXAMPLE
 
 import java.util.Arrays;
 import java.util.List;
@@ -171,7 +171,7 @@ interface NaturalTransformation<F extends Functor, G extends Functor> {
 
 
 
-MONAD EXAMPLE
+### MONAD EXAMPLE
 
 import java.util.Optional;
 
@@ -189,7 +189,7 @@ public class MonadExample {
     }
 }
 
-COMONAD EXAMPLE
+### COMONAD EXAMPLE
 
 import java.util.List;
 
@@ -225,66 +225,8 @@ class ListComonad {
     }
 }
 
-In this example, we are using the List comonad to perform a computation on a list of integers. We define a coflatMap method that takes a list and a function, and returns a new list of lists. The function is applied to each element in the input list, and produces a new list of values. The resulting list of lists contains all the combinations of the original list with the lists produced by the function. We use the tail method to produce a list of values that starts with the second element of the input list.
 
-MONAD TRANSFORMER EXAMPLES
-
-
-import java.util.Optional;
-import java.util.stream.Stream;
-
-public class Example {
-
-    public static void main(String[] args) {
-        // Create an optional that contains a stream
-        Optional<Stream<Integer>> optional = Optional.of(Stream.of(1, 2, 3));
-
-        // Transform the optional using the stream monad
-        Optional<Stream<Integer>> result = MonadTransformer.transform(optional, i -> Stream.of(i * 2));
-
-        // Print the result
-        System.out.println(result); // Optional[[2, 4, 6]]
-    }
-}
-
-interface MonadTransformer<M1, M2> {
-    static <A, B> Function<M1, M2> lift(Function<A, B> f, Monad<M1> m1, Monad<M2> m2) {
-        return a -> m1.flatMap(m2.lift(f).apply(a), m2);
-    }
-
-    static <A, B> M2 transform(M1 m1, Function<A, M2> f) {
-        return lift(f, new Monad<M1>() {}, new Monad<M2>() {}).apply(m1);
-    }
-}
-
-interface Monad<M> {
-    <A, B> M flatMap(Function<A, M> f, M m);
-    <A, B> Function<M, M> lift(Function<A, B> f);
-}
-
-class OptionalMonad implements Monad<Optional<?>> {
-    @Override
-    public <A, B> Optional<?> flatMap(Function<A, Optional<?>> f, Optional<?> m) {
-        return m.flatMap(f);
-    }
-
-    @Override
-    public <A, B> Function<Optional<?>, Optional<?>> lift(Function<A, B> f) {
-        return m -> m.map(f);
-    }
-}
-
-class StreamMonad implements Monad<Stream<?>> {
-    @Override
-    public <A, B> Stream<?> flatMap(Function<A, Stream<?>> f, Stream<?> m) {
-        return m.flatMap(a -> f.apply((A) a));
-    }
-
-    @Override
-    public <A, B> Function<Stream<?>, Stream<?>> lift(Function<A, B> f) {
-        return m -> m.map(f);
-    }
-}
+### MONAD TRANSFORMER EXAMPLES
 
 
 import java.util.Optional;
@@ -344,8 +286,65 @@ class StreamMonad implements Monad<Stream<?>> {
 }
 
 
+import java.util.Optional;
+import java.util.stream.Stream;
 
-LIST COMPREHNSION
+public class Example {
+
+    public static void main(String[] args) {
+        // Create an optional that contains a stream
+        Optional<Stream<Integer>> optional = Optional.of(Stream.of(1, 2, 3));
+
+        // Transform the optional using the stream monad
+        Optional<Stream<Integer>> result = MonadTransformer.transform(optional, i -> Stream.of(i * 2));
+
+        // Print the result
+        System.out.println(result); // Optional[[2, 4, 6]]
+    }
+}
+
+interface MonadTransformer<M1, M2> {
+    static <A, B> Function<M1, M2> lift(Function<A, B> f, Monad<M1> m1, Monad<M2> m2) {
+        return a -> m1.flatMap(m2.lift(f).apply(a), m2);
+    }
+
+    static <A, B> M2 transform(M1 m1, Function<A, M2> f) {
+        return lift(f, new Monad<M1>() {}, new Monad<M2>() {}).apply(m1);
+    }
+}
+
+interface Monad<M> {
+    <A, B> M flatMap(Function<A, M> f, M m);
+    <A, B> Function<M, M> lift(Function<A, B> f);
+}
+
+class OptionalMonad implements Monad<Optional<?>> {
+    @Override
+    public <A, B> Optional<?> flatMap(Function<A, Optional<?>> f, Optional<?> m) {
+        return m.flatMap(f);
+    }
+
+    @Override
+    public <A, B> Function<Optional<?>, Optional<?>> lift(Function<A, B> f) {
+        return m -> m.map(f);
+    }
+}
+
+class StreamMonad implements Monad<Stream<?>> {
+    @Override
+    public <A, B> Stream<?> flatMap(Function<A, Stream<?>> f, Stream<?> m) {
+        return m.flatMap(a -> f.apply((A) a));
+    }
+
+    @Override
+    public <A, B> Function<Stream<?>, Stream<?>> lift(Function<A, B> f) {
+        return m -> m.map(f);
+    }
+}
+
+
+
+### LIST COMPREHENSION
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -408,7 +407,7 @@ public class ListComprehensionExample {
         
 
 
-FOR_COMPREHNSION JAVA EXAMPLE
+FOR_COMPREHENSION JAVA EXAMPLE
 
 
 import java.util.Arrays;
@@ -606,7 +605,7 @@ public class ForComprehensionExample {
 
 
 
-INJECTION EXAMPLE
+### INJECTION EXAMPLE
 
 public class EitherMonadExample {
 
