@@ -26,6 +26,8 @@ For the examples involving monads and monad transformers, the main classes and i
 
 ### FUNCTOR & COFUNCTOR
 
+```java
+  
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -108,11 +110,12 @@ public class Example2 {
         System.out.println(result); // [3, 3, 3]
     }
 }
-
+```
 
 
 ### NATURAL TRANSFORMATION EXAMPLE
 
+```java
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
@@ -168,11 +171,12 @@ class StreamFunctor<A> {
 interface NaturalTransformation<F extends Functor, G extends Functor> {
     <A> G apply(F fa);
 }
+```
 
 
+### MONAD/COMONAD EXAMPLE
 
-### MONAD EXAMPLE
-
+```java
 import java.util.Optional;
 
 public class MonadExample {
@@ -188,9 +192,7 @@ public class MonadExample {
         System.out.println(result); // Optional.empty()
     }
 }
-
-### COMONAD EXAMPLE
-
+      
 import java.util.List;
 
 public class ComonadExample {
@@ -224,11 +226,13 @@ class ListComonad {
         }
     }
 }
-
+```
 
 ### MONAD TRANSFORMER EXAMPLES
 
 
+```java
+      
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -341,10 +345,14 @@ class StreamMonad implements Monad<Stream<?>> {
         return m -> m.map(f);
     }
 }
-
+```
 
 
 ### LIST COMPREHENSION
+
+
+```java
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -405,10 +413,12 @@ public class ListComprehensionExample {
                 .boxed()
                 .collect(Collectors.toList());
         
-
+```
 
 FOR_COMPREHENSION JAVA EXAMPLE
 
+
+```java
 
 import java.util.Arrays;
 import java.util.List;
@@ -602,10 +612,14 @@ public class ForComprehensionExample {
         return stream.flatMap(a -> f.apply(a));
     }
 }
-
+```
 
 
 ### INJECTION EXAMPLE
+
+
+```java
+
 
 public class EitherMonadExample {
 
@@ -761,6 +775,7 @@ public class StateMonad<S, T> implements Monad<T, StateMonad<S, ?>> {
     }
 }
 
+```
 
 
 
