@@ -21,7 +21,7 @@ For the examples involving monads and monad transformers, the main classes and i
 
 - MonadTransformer<M, T>: This is an interface representing a monad transformer that takes a monad M and transforms it into a new monad that includes additional effects.
   
-  #WARNING - WHAT FOLLOW IS INCOMPLETE AND UNFILTERED CODE; IT COMES DIRECTLY FROM A CHAT SESSION
+  # WARNING - WHAT FOLLOW IS INCOMPLETE AND UNFILTERED CODE; IT COMES DIRECTLY FROM A CHAT SESSION
   
 
 ### FUNCTOR & COFUNCTOR
